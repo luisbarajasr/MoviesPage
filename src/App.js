@@ -1,17 +1,29 @@
 import React from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import './App.css'
 import SearchIcon from './search.svg'; 
+import MovieCard from './MovieCard'
 
 const API_URL = 'http://www.omdbapi.com?apikey=1618a299'; 
 
+
+const movie1 = {
+    "Title": "Amazing Spiderman Syndrome",
+    "Year": "2012",
+    "imdbID": "tt2586634",
+    "Type": "movie",
+    "Poster": "N/A"
+}
+
 const App = () => {
+
+    const [movies, setMovies] = useState(); 
 
     const searchMovies = async(title) => {
         const response = await fetch(` ${API_URL}&s=${title}`);  //calling API
         const data = await response.json(); 
 
-        console.log(data.Search); 
+        setMovies(data.Search); 
     }
 
     useEffect(() => {
@@ -26,7 +38,7 @@ const App = () => {
             <div className="search">
                 <input 
                     placeholder="Search for movies"
-                    value="Enter movie name..." 
+                    value="Superman" 
                     onChange={() => {}}
                 />
 
@@ -38,9 +50,20 @@ const App = () => {
                 
             </div>   
 
-            <div className="container">
-                
-            </div>
+            { 
+                movies?.length > 0 //if movies exists, then..
+                    ? ( 
+                        <div className="container"> 
+                            <MovieCard movie1={movie1} /> 
+                        </div>          
+                    ) : (
+                        <div className="empty">
+                            <h2>No movies found</h2>
+                        </div>
+                    ) 
+
+            }
+
         </div>
     ); 
 }
