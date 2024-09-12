@@ -21,15 +21,15 @@ const MovieCard = ( {movie, onClick} ) => {
         </div>
 
         <div>
-            <img src={movie.big_image } alt={movie.Title}/>            
+            <img src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/400'} alt={movie.Title}/>
         </div>
-        <div key={movie.id}>
-            <span>{movie.Type}</span>
-            <h3>{movie.title}</h3>
+        <div className="movie-info">
+                <h3>{movie.Title}</h3>
+                <span>{movie.Director}</span>
         </div>
         {showDescription && (
-            <div>
-                <h3>{movie.description}</h3>
+            <div className="description">
+                <p>{movie.Plot}</p>
             </div>
         )}
     </div>

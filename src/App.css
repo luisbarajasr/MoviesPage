@@ -164,12 +164,18 @@ h1 {
   opacity: 1;
 }
 
+
+.movie div:nth-of-type(3) h3 {
+  margin-top: 5px;
+  font-family: "Roboto Slab", serif;
+  color: #f9d3b4; /* Title color */
+}
+
 /* Description styling */
-.description{
-  display: flex;
-  padding: 12px;
+.description {
+  padding: 16px; /* Adjusted padding */
   background-color: #343739;
-  color: #f9d3b4;
+  color: #f9d3b4; /* Ensure the description has the same color as the movie title */
   font-family: var(--font-roboto);
   text-align: justify;
   margin-top: 12px;
@@ -177,14 +183,16 @@ h1 {
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Ensure description is hidden by default */
 .movie .description {
-  display: none; /* Hidden by default */
+  display: none;
 }
 
 /* Show description on hover or click */
 .movie:hover .description {
   display: block;
 }
+
 
 @media screen and (max-width: 600px) {
   .app {

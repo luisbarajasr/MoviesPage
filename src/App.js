@@ -7,25 +7,32 @@ import MovieCard from './MovieCard'
 
 const App = () => {
 
-    const [movies, setMovies] = useState(); 
+    const [movie, setMovie] = useState(); 
 
     const [searhTerm, setSearchTerm] = useState(''); 
 
     const searchMovies = async(title) => {
 
-        const url = 'https://imdb-top-100-movies.p.rapidapi.com/';
-        const options = {
-            method: 'GET',
-            headers: {
-                'x-rapidapi-key': '90cda6f14cmshe048376683ad479p17948bjsn73915f5c89a9',
-                'x-rapidapi-host': 'imdb-top-100-movies.p.rapidapi.com'
-            }
-        };
+        // const url = 'https://imdb-top-100-movies.p.rapidapi.com/';
+        // const options = {
+        //     method: 'GET',
+        //     headers: {
+        //         'x-rapidapi-key': '90cda6f14cmshe048376683ad479p17948bjsn73915f5c89a9',
+        //         'x-rapidapi-host': 'imdb-top-100-movies.p.rapidapi.com'
+        //     }
+        // };
+
+        const url = 'http://www.omdbapi.com?apikey=1618a299'
 
         try {
-            const response = await fetch(url, options);
+            const response = await fetch(` ${url}&t=${searhTerm}`);  //calling API
             const data = await response.json();
-            setMovies(data); 
+
+            if (data.Response === "True") {
+                setMovie(data); 
+            } else {
+                setMovie(null); // Handle case when no movie is found
+            }
             console.log(data);
         } catch (error) {
             console.error(error);
@@ -48,19 +55,16 @@ const App = () => {
                     src={SearchIcon}
                     alt="search"
                     onClick = {() => searchMovies(searhTerm)}
-                />    
-                
+                />                    
             </div>   
             { 
-                movies?.length > 0 //if movies exists, then..
-                    ? ( 
+                movie && movie.Response === "True" ?  //if movies exists, then..
+                    ( 
                         <div className="container"> 
-                            {movies.map((movie)=> (
-                                <MovieCard 
-                                    key={movie.id} 
-                                    movie={movie} 
-                                />
-                            ))}
+                            <MovieCard 
+                            key={movie.imdbID} 
+                            movie={movie} 
+                        />
                         </div>          
                     ) : (
                         <div className="empty">
