@@ -22,7 +22,7 @@ const App = () => {
         //     }
         // };
 
-        const url = 'http://www.omdbapi.com?apikey=1618a299'
+        const url = 'https://www.omdbapi.com?apikey=1618a299'
 
         try {
             const response = await fetch(` ${url}&t=${searhTerm}`);  //calling API
